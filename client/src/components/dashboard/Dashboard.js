@@ -25,7 +25,9 @@ const Dashboard = ({
       </p>
 
       {profile !== null ? (
-        <DashboardActions />
+        <Fragment>
+          <DashboardActions />
+        </Fragment>
       ) : (
         <Fragment>
           <p>You have not yet setup a profile, please add some info</p>
