@@ -7,6 +7,7 @@ import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
 
 import { getPost } from '../../actions/post';
+import CommentForm from './CommentForm';
 
 const Post = ({ getPost, post: { post, loading }, match }) => {
   useEffect(() => {
@@ -21,21 +22,7 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
       </Link>
       <PostItem post={post} showActions={false} />
 
-      <div className="post-form">
-        <div className="bg-primary p">
-          <h3>Leave A Comment</h3>
-        </div>
-        <form className="form my-1">
-          <textarea
-            name="text"
-            cols="30"
-            rows="5"
-            placeholder="Comment on this post"
-            required
-          ></textarea>
-          <input type="submit" className="btn btn-dark my-1" value="Submit" />
-        </form>
-      </div>
+      <CommentForm postId={post._id} />
 
       <div className="comments">
         <div className="post bg-white p-1 my-1">

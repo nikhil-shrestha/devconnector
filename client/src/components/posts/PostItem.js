@@ -47,7 +47,7 @@ const PostItem = ({
             <Link to={`/posts/${_id}`} className="btn btn-primary">
               Discussion{' '}
               {comments.length > 0 && (
-                <span className="comment-count">comments.length</span>
+                <span className="comment-count">{comments.length}</span>
               )}
             </Link>
           </Fragment>
