@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Spinner from '../layout/Spinner';
+import DashboardActions from './DashboardActions';
 import { getCurrentProfile } from '../../actions/profile';
 
 const Dashboard = ({
@@ -13,7 +14,7 @@ const Dashboard = ({
 }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]);
   return loading && profile === null ? (
     <Spinner />
   ) : (
@@ -23,28 +24,16 @@ const Dashboard = ({
         <i className="fas fa-user"></i> Welcome {user && user.name}
       </p>
 
-      <div className="dash-buttons">
-        {profile !== null ? (
-          <Fragment>
-            <Link to="/edit-profile" className="btn btn-light">
-              <i className="fas fa-user-circle text-primary"></i> Edit Profile
-            </Link>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <p>You have not yet setup a profile, please add some info</p>
-            <Link to="/create-profile" className="btn btn-light">
-              <i className="fas fa-user-circle text-primary"></i> Create Profile
-            </Link>
-          </Fragment>
-        )}
-        <Link to="add-experience.html" className="btn btn-light">
-          <i to="fab fa-black-tie text-primary"></i> Add Experience
-        </Link>
-        <Link to="/add-education" className="btn btn-light">
-          <i className="fas fa-graduation-cap text-primary"></i> Add Education
-        </Link>
-      </div>
+      {profile !== null ? (
+        <DashboardActions />
+      ) : (
+        <Fragment>
+          <p>You have not yet setup a profile, please add some info</p>
+          <Link to="/create-profile" className="btn btn-light">
+            <i className="fas fa-user-circle text-primary"></i> Create Profile
+          </Link>
+        </Fragment>
+      )}
 
       <h2 className="my-2">Experience Credentials</h2>
       <table className="table">
