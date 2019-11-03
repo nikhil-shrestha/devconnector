@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
+import CommentItem from './CommentItem';
 
 import { getPost } from '../../actions/post';
 import CommentForm from './CommentForm';
@@ -12,7 +13,7 @@ import CommentForm from './CommentForm';
 const Post = ({ getPost, post: { post, loading }, match }) => {
   useEffect(() => {
     getPost(match.params.id);
-  }, [getPost]);
+  }, [getPost, match.params.id]);
   return loading || post === null ? (
     <Spinner />
   ) : (
@@ -25,52 +26,14 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
       <CommentForm postId={post._id} />
 
       <div className="comments">
-        <div className="post bg-white p-1 my-1">
-          <div>
-            <a href="profile.html">
-              <img
-                className="round-img"
-                src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-                alt=""
-              />
-              <h4>John Doe</h4>
-            </a>
-          </div>
-          <div>
-            <p className="my-1">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
-              possimus corporis sunt necessitatibus! Minus nesciunt soluta
-              suscipit nobis. Amet accusamus distinctio cupiditate blanditiis
-              dolor? Illo perferendis eveniet cum cupiditate aliquam?
-            </p>
-            <p className="post-date">Posted on 04/16/2019</p>
-          </div>
-        </div>
-
-        <div className="post bg-white p-1 my-1">
-          <div>
-            <a href="profile.html">
-              <img
-                className="round-img"
-                src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
-                alt=""
-              />
-              <h4>John Doe</h4>
-            </a>
-          </div>
-          <div>
-            <p className="my-1">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
-              possimus corporis sunt necessitatibus! Minus nesciunt soluta
-              suscipit nobis. Amet accusamus distinctio cupiditate blanditiis
-              dolor? Illo perferendis eveniet cum cupiditate aliquam?
-            </p>
-            <p className="post-date">Posted on 04/16/2019</p>
-            <button type="button" className="btn btn-danger">
-              <i className="fas fa-times"></i>
-            </button>
-          </div>
-        </div>
+        {post.comments.map(comment => (
+          <CommentItem
+            key={comment._id}
+            comment={comment}
+            postId={post._id}
+            showActions={false}
+          />
+        ))}
       </div>
     </Fragment>
   );
