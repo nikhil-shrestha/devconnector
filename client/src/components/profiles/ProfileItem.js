@@ -12,23 +12,23 @@ const ProfileItem = ({
   }
 }) => {
   return (
-    <div class="profile bg-light">
-      <img class="round-img" src={avatar} alt="" />
+    <div className="profile bg-light">
+      <img className="round-img" src={avatar} alt="" />
       <div>
         <h2>{name}</h2>
         <p>
           {status} {company && <span>at {company}</span>}
         </p>
-        <p className="my-1">{location && <span>{location}</span>}</p>
-        <Link to={`/profile/${_id}`} class="btn btn-primary">
+        <p classNameName="my-1">{location && <span>{location}</span>}</p>
+        <Link to={`/profile/${_id}`} className="btn btn-primary">
           View Profile
         </Link>
       </div>
 
       <ul>
         {skills.slice(0, 4).map((skill, idx) => (
-          <li key={idx} class="text-primary">
-            <i class="fas fa-check"></i> {skill}
+          <li key={idx} className="text-primary">
+            <i className="fas fa-check"></i> {skill}
           </li>
         ))}
       </ul>
