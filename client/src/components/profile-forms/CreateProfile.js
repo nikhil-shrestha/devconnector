@@ -1,8 +1,10 @@
 import React, { Fragment, useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createProfile } from '../../actions/profile';
 
-const CreateProfile = props => {
+const CreateProfile = ({ createProfile, history }) => {
   const [formData, setFormData] = useState({
     company: '',
     website: '',
@@ -39,6 +41,8 @@ const CreateProfile = props => {
 
   const onSubmitHandler = e => {
     e.preventDefault();
+    console.log(formData);
+    createProfile(formData, history);
   };
 
   return (
@@ -49,8 +53,8 @@ const CreateProfile = props => {
         profile stand out
       </p>
       <small>* = required field</small>
-      <form className="form">
-        <div className="form-group" onSubmit={e => onSubmitHandler(e)}>
+      <form className="form" onSubmit={e => onSubmitHandler(e)}>
+        <div className="form-group">
           <select
             name="status"
             value={status}
@@ -211,15 +215,22 @@ const CreateProfile = props => {
           </Fragment>
         )}
 
-        <input type="submit" className="btn btn-primary my-1" />
-        <a className="btn btn-light my-1" href="dashboard.html">
+        <button type="submit" className="btn btn-primary my-1">
+          Submit
+        </button>
+        <Link className="btn btn-light my-1" to="/dashboard">
           Go Back
-        </a>
+        </Link>
       </form>
     </Fragment>
   );
 };
 
-CreateProfile.propTypes = {};
+CreateProfile.propTypes = {
+  createProfile: PropTypes.func.isRequired
+};
 
-export default connect()(CreateProfile);
+export default connect(
+  null,
+  { createProfile }
+)(withRouter(CreateProfile));
